@@ -1,0 +1,82 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Assignment_2201737324.Model;
+
+namespace Assignment_2201737324.View
+{
+    public partial class ProfilePage : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Session["admin"] == null && Session["member"] == null)
+            {
+                if (Request.Cookies.Get("admin") != null)
+                {
+                    HttpCookie cookieAdmin = Request.Cookies.Get("admin");
+                    int id = int.Parse(cookieAdmin.Value);
+                    TokobediaModelContainer db = new TokobediaModelContainer();
+                    User users = db.Users.Where(a => a.Id == id).FirstOrDefault();
+
+                    Session.Add("admin", users);
+                }
+                else if (Request.Cookies.Get("member") != null)
+                {
+                    HttpCookie cookieMember = Request.Cookies.Get("member");
+                    int id = int.Parse(cookieMember.Value);
+                    TokobediaModelContainer db = new TokobediaModelContainer();
+                    User users = db.Users.Where(a => a.Id == id).FirstOrDefault();
+
+                    Session.Add("member", users);
+                }
+                else
+                {
+                    Response.Redirect("HomePage.aspx");
+                }
+            }
+            if (Session["admin"] != null || Session["member"] != null)
+            {
+                TokobediaModelContainer db = new TokobediaModelContainer();
+                if (Session["admin"] != null)
+                {
+                    int id = ((User)Session["admin"]).Id;
+                    User users = db.Users.Where(a => a.Id == id).FirstOrDefault();
+                    ProfileName.Text = users.Name;
+                    ProfileEmail.Text = users.Email;
+                    ProfileGender.Text = users.Gender;
+                }
+                else if(Session["member"] != null)
+                {
+                    int id = ((User)Session["member"]).Id;
+                    User users = db.Users.Where(a => a.Id == id).FirstOrDefault();
+                    ProfileName.Text = users.Name;
+                    ProfileEmail.Text = users.Email;
+                    ProfileGender.Text = users.Gender;
+                }
+            }
+        }
+
+        protected void btnUpdatePrfl(object sender, EventArgs e)
+        {
+            User updateUser = new User();
+            updateUser.Email = ProfileEmail.Text.ToString();
+            updateUser.Name = ProfileName.Text.ToString();
+            updateUser.Gender = ProfileGender.Text.ToString();
+
+            Session.Add("updatePrfl", updateUser);
+            Response.Redirect("UpdatePrflPage.aspx");
+        }
+
+        protected void btnUpdatePw(object sender, EventArgs e)
+        {
+            User updateUser = new User();
+            updateUser.Email = ProfileEmail.Text.ToString();
+
+            Session.Add("updatePw", updateUser);
+            Response.Redirect("ChangePwPage.aspx");
+        }
+    }
+}

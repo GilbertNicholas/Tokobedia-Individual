@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="TokobediaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="TokobediaModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Products" EntityType="TokobediaModel.Product" />
+    <EntitySet Name="ProductTypes" EntityType="TokobediaModel.ProductType" />
+    <EntitySet Name="Roles" EntityType="TokobediaModel.Role" />
+    <EntitySet Name="TransactionDetails" EntityType="TokobediaModel.TransactionDetail" />
+    <EntitySet Name="TransactionHeaders" EntityType="TokobediaModel.TransactionHeader" />
+    <EntitySet Name="Users" EntityType="TokobediaModel.User" />
+    <AssociationSet Name="FK__Products__Produc__3C34F16F" Association="TokobediaModel.FK__Products__Produc__3C34F16F">
+      <End Role="ProductType" EntitySet="ProductTypes" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Transacti__Produ__2B0A656D" Association="TokobediaModel.FK__Transacti__Produ__2B0A656D">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="TransactionDetail" EntitySet="TransactionDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__RoleId__3F115E1A" Association="TokobediaModel.FK__Users__RoleId__3F115E1A">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Transacti__Trans__4F47C5E3" Association="TokobediaModel.FK__Transacti__Trans__4F47C5E3">
+      <End Role="TransactionHeader" EntitySet="TransactionHeaders" />
+      <End Role="TransactionDetail" EntitySet="TransactionDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Transacti__UserI__503BEA1C" Association="TokobediaModel.FK__Transacti__UserI__503BEA1C">
+      <End Role="User" EntitySet="Users" />
+      <End Role="TransactionHeader" EntitySet="TransactionHeaders" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductTypeID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="Stock" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ProductType" Relationship="TokobediaModel.FK__Products__Produc__3C34F16F" FromRole="Product" ToRole="ProductType" />
+    <NavigationProperty Name="TransactionDetails" Relationship="TokobediaModel.FK__Transacti__Produ__2B0A656D" FromRole="Product" ToRole="TransactionDetail" />
+  </EntityType>
+  <EntityType Name="ProductType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Products" Relationship="TokobediaModel.FK__Products__Produc__3C34F16F" FromRole="ProductType" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Users" Relationship="TokobediaModel.FK__Users__RoleId__3F115E1A" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="TransactionDetail">
+    <Key>
+      <PropertyRef Name="TransactionId" />
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="TransactionId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="TokobediaModel.FK__Transacti__Produ__2B0A656D" FromRole="TransactionDetail" ToRole="Product" />
+    <NavigationProperty Name="TransactionHeader" Relationship="TokobediaModel.FK__Transacti__Trans__4F47C5E3" FromRole="TransactionDetail" ToRole="TransactionHeader" />
+  </EntityType>
+  <EntityType Name="TransactionHeader">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="TransactionDetails" Relationship="TokobediaModel.FK__Transacti__Trans__4F47C5E3" FromRole="TransactionHeader" ToRole="TransactionDetail" />
+    <NavigationProperty Name="User" Relationship="TokobediaModel.FK__Transacti__UserI__503BEA1C" FromRole="TransactionHeader" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="TokobediaModel.FK__Users__RoleId__3F115E1A" FromRole="User" ToRole="Role" />
+    <NavigationProperty Name="TransactionHeaders" Relationship="TokobediaModel.FK__Transacti__UserI__503BEA1C" FromRole="User" ToRole="TransactionHeader" />
+  </EntityType>
+  <Association Name="FK__Products__Produc__3C34F16F">
+    <End Type="TokobediaModel.ProductType" Role="ProductType" Multiplicity="1" />
+    <End Type="TokobediaModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ProductTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Transacti__Produ__2B0A656D">
+    <End Type="TokobediaModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="TokobediaModel.TransactionDetail" Role="TransactionDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TransactionDetail">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__RoleId__3F115E1A">
+    <End Type="TokobediaModel.Role" Role="Role" Multiplicity="1" />
+    <End Type="TokobediaModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Transacti__Trans__4F47C5E3">
+    <End Type="TokobediaModel.TransactionHeader" Role="TransactionHeader" Multiplicity="1" />
+    <End Type="TokobediaModel.TransactionDetail" Role="TransactionDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TransactionHeader">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TransactionDetail">
+        <PropertyRef Name="TransactionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Transacti__UserI__503BEA1C">
+    <End Type="TokobediaModel.User" Role="User" Multiplicity="1" />
+    <End Type="TokobediaModel.TransactionHeader" Role="TransactionHeader" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TransactionHeader">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

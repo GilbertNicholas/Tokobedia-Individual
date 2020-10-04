@@ -1,0 +1,30 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Home.master.cs" Inherits="Assignment_2201737324.View.Home" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <h2>ToKoBeDiA</h2>
+        <asp:HyperLink ID="LinkHome" runat="server" NavigateUrl="HomePage.aspx">Home</asp:HyperLink>
+        <asp:HyperLink ID="LinkProfile" runat="server" NavigateUrl="ProfilePage.aspx">Profile</asp:HyperLink>
+        <asp:HyperLink ID="LinkProduct" runat="server" NavigateUrl="ProductPage.aspx">View Product</asp:HyperLink>
+        <asp:HyperLink ID="LinkType" runat="server" NavigateUrl="ProdTypePage.aspx">View Product Type</asp:HyperLink>
+        <asp:HyperLink ID="LinkUser" runat="server" NavigateUrl="UserPage.aspx">View User</asp:HyperLink>
+
+        <asp:Button ID="homeLogin" runat="server" Text="Login" OnClick="homeLogin_Click"/>
+        <asp:Button ID="homeLogout" runat="server" Text="Logout" Onclick="homeLogout_Click"/>
+
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
