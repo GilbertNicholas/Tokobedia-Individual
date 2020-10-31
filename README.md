@@ -17,7 +17,7 @@ You can run this project with Visual Studio 2015 or newer, and from View/Homepag
 ## Project's Preview
 <p align="center"><img src="Homepage.png"></p><br>
 <p align="center"><img src="loginFailed.png"></p><br>
-<p align="center"><img src="ViewProduct.png"></p><br>
+<p align="center"><img src="ProductView.png"></p><br>
 <p align="center"><img src="User.png"></p><br>
 
 ## Technologies
