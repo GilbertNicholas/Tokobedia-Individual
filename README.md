@@ -5,7 +5,7 @@ This is a project to fulfill requirement in Pattern Software Design Laboratory S
 This website is an imitation "Tokopedia", and please <b>note</b> that this project emphasize the back end side, with less front end. 
 
 <br>In this project, there are different roles, as the user and admin. 
-<br>You can add, update, delete product and change user's status(active/blocked) as admin
+<br>You can add, update, delete product and change user's status (active/blocked) as admin
 <br>You can only see product and update your profile (email/name/gender/password)as a user
 
 <br>All of the features above are ready to use in this project
